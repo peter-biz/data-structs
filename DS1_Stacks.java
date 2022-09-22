@@ -70,11 +70,15 @@ public class DS1_Stacks {
                 System.out.println("\n" + s + " is not balanced.");
             }
 
-           //TODO find time complexity
+           //TIME COMPLEXITY is O(n) because the for loop runs n times and the if statements are constant time
         }
         else
         {
             System.out.println("\n Given string is empty.");
         }
+
+
+
+
     }
 }
