@@ -1,7 +1,5 @@
 import java.util.*;
 
-import javax.lang.model.util.ElementScanner6;
-
 public class DS1_Stacks {
     public static void main(String args[]) {
 
