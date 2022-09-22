@@ -9,19 +9,21 @@ public class DS1_Stacks {
         String testCase1 = "[()]"; // output should be: [()] is balanced
         String testCase2 = "()[]"; // output should be: ()[] is balanced
         String testCase3 = "[(]["; // output should be: [)][ is not balanced
-
-      // isBalanced(testCase1);
-      // isBalanced(testCase2);
+        
+        
+        //run test cases
+       isBalanced(testCase1);
+       isBalanced(testCase2);
        isBalanced(testCase3);
     }
 
     public static void isBalanced(String s) {
-        Stack<String> stack = new Stack<String>();
+        Stack<String> stack = new Stack<String>();  //new stack
         int pCount = 0; //parentheses count
         int bCount = 0; //squre bracket count
 
 
-        for(int x = 0; x < s.length(); x++)
+        for(int x = 0; x < s.length(); x++)  //inserts the chars in the string into the stack
         {
             String c = s.charAt(x) +"";
             stack.push(c);
