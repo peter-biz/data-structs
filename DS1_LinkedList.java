@@ -14,39 +14,39 @@ public class DS1_LinkedList {
     public static void main(String arg[])
     {
         //test cases
-        int count = 0;
-        Node head = new Node(10);
+        Node head = new Node(10);  //odd size: 5
         Node firstHead = head;
 
         //add nodes to linked list
-        for(int x = 2; x <= 5; x++)
+        for(int r = 2; r <= 5; r++)
         {
-            head.next = new Node(x * 10);
-            System.out.println(head.data + "");
+            head.next = new Node(r * 10);
             head = head.next;  
-            System.out.println("head next: " + head.data + "");
-            count++;
         } //{10, 20, 30, 40, 50}
 
-        System.out.println("count" + count);
+        Node head2 = new Node(1); //even size: 4
+        Node secondHead = head2;
+        for(int s = 2; s <= 4; s++)
+        {
+            head2.next = new Node(s);
+            head2 = head2.next;
+        } //{1, 2, 3, 4}
+
+
+
         Node sizeOneNode = new Node(1);
 
-
         //run test cases
-        removeMid(firstHead, count);
-        
-        removeMid(sizeOneNode, 69);
+        removeMid(firstHead);
+        removeMid(secondHead);
+        removeMid(sizeOneNode);
     }
 
 
-    public static void removeMid(Node head, int count)
+    public static void removeMid(Node head)
     {   
-        if(count <= 1)
-        {
-            head = null;
-            return;
-        }
-        else if(!(head == null))
+        //int count = 0;
+        if(!(head == null))
         {
             //using two pointer variables, find the middle of the node and delete it then output result
             Node slow = head;
@@ -59,20 +59,34 @@ public class DS1_LinkedList {
                 slow = slow.next;
                 fast = fast.next.next;
             }
-            prev.next = slow.next;
-            
-            //output
-            System.out.print("\n List with middle node removed: " );
-            for(int x = 0; x < count; x++)
+            if(prev != null)
             {
-                if(head == null)
-                {
-                    return;
-                }
-                System.out.print(head.data + " ");
-                head = head.next;
+                prev.next = slow.next;
             }
+            else
+            {
+                head = null;
+                System.out.println("\nOne noded list, element removed, list: " + head);
+                return;
+            }
+
+            //output
+            print(head);
+
         }
         
     }
+    
+    public static void print(Node head)
+    {   
+        System.out.print("\nList with middle node removed: " );
+        while(head != null)
+        {
+
+            System.out.print(head.data + " ");
+            head = head.next;
+        }
+    }
 }
+
+
