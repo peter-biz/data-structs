@@ -1,4 +1,5 @@
 public class DS1_LinkedList {
+    
     //node
     public static class Node {
         int data;
@@ -44,7 +45,7 @@ public class DS1_LinkedList {
     public static void removeMid(Node head)
     {   
         if(!(head == null))
-        {  //uses two pointer variables to TODO
+        {  //uses two pointer variables to TODO write comments
             Node slow = head;
             Node fast = head;
             Node prev = null;
