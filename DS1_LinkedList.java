@@ -1,42 +1,78 @@
 import java.util.*;
 
 public class DS1_LinkedList {
+    //node
+    public static class Node {
+        int data;
+        Node next;
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
     public static void main(String arg[])
     {
         //test cases
-        LinkedList<Integer> list = new LinkedList<Integer>();
-        for(int x = 0; x < 5; x++)
-        {
-            list.add(x); //0, 1, 2, 3, 4
-        } // output should be: 0,1,3,4
+        int count = 0;
+        Node head = new Node(10);
+        Node firstHead = head;
 
-        LinkedList<Integer> list2 = new LinkedList<Integer>();
-        for(int x = 0; x < 4; x++)  //unironically not sure what the output should be for this, cause it technically doesnt have a mid point, maybe throw an error? or 2 mid?
+        //add nodes to linked list
+        for(int x = 2; x <= 5; x++)
         {
-            list2.add(x);  //0, 1, 2, 3
-        } //TODO idk ask bluwho
-        
-        LinkedList<Integer> list3 = new LinkedList<Integer>();
-        for(int x = 0; x < 3; x++)
-        {
-            list3.add(x); //0, 1, 2
-        } // output should be: 0, 2
+            head.next = new Node(x * 10);
+            System.out.println(head.data + "");
+            head = head.next;  
+            System.out.println("head next: " + head.data + "");
+            count++;
+        } //{10, 20, 30, 40, 50}
 
+        System.out.println("count" + count);
+        Node sizeOneNode = new Node(1);
 
 
         //run test cases
-        removeMid(list);
-        removeMid(list2);
-        removeMid(list3);
+        removeMid(firstHead, count);
+        
+        removeMid(sizeOneNode, 69);
     }
 
-    public static void removeMid(LinkedList<Integer> l)
-    {
-        //removes the middle element of the list
-        System.out.println("init list: " + l);
-        int size = l.size();
-        int mid = size/2;
-        l.remove(mid);
-        System.out.println("List with mid removed: " + l);
+
+    public static void removeMid(Node head, int count)
+    {   
+        if(count <= 1)
+        {
+            head = null;
+            return;
+        }
+        else if(!(head == null))
+        {
+            //using two pointer variables, find the middle of the node and delete it then output result
+            Node slow = head;
+            Node fast = head;
+            Node prev = null;
+
+            while(fast != null && fast.next != null)
+            {
+                prev = slow;
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            prev.next = slow.next;
+            
+            //output
+            System.out.print("\n List with middle node removed: " );
+            for(int x = 0; x < count; x++)
+            {
+                if(head == null)
+                {
+                    return;
+                }
+                System.out.print(head.data + " ");
+                head = head.next;
+            }
+        }
+        
     }
 }
