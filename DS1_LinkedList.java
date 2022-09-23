@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class DS1_LinkedList {
     //node
     public static class Node {
@@ -45,10 +43,8 @@ public class DS1_LinkedList {
 
     public static void removeMid(Node head)
     {   
-        //int count = 0;
         if(!(head == null))
-        {
-            //using two pointer variables, find the middle of the node and delete it then output result
+        {  //uses two pointer variables to TODO
             Node slow = head;
             Node fast = head;
             Node prev = null;
@@ -70,11 +66,10 @@ public class DS1_LinkedList {
                 return;
             }
 
-            //output
+            //output, sends to print function 
             print(head);
 
         }
-        
     }
     
     public static void print(Node head)

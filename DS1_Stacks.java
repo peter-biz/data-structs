@@ -24,7 +24,7 @@ public class DS1_Stacks {
     public static void isBalanced(String s) {
         Stack<String> stack = new Stack<String>();  //new stack
         int pCount = 0; //parentheses count
-        int bCount = 0; //squre bracket count
+        int bCount = 0; //square bracket count
 
 
         for(int x = 0; x < s.length(); x++)  //inserts the chars in the string into the stack
@@ -74,9 +74,5 @@ public class DS1_Stacks {
         {
             System.out.println("\n Given string is empty.");
         }
-
-
-
-
     }
 }
