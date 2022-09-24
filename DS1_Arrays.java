@@ -45,3 +45,7 @@ public class DS1_Arrays{
         System.out.println("Array size: " + finArraySize);
     }
 }
+
+/*
+ * TIME COMPLEXITY is O(n^2)
+ */

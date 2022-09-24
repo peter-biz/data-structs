@@ -76,3 +76,8 @@ public class DS1_Stacks {
         }
     }
 }
+
+
+/*
+ * TIME COMPELXITY is O(n)
+ */

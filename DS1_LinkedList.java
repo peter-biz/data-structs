@@ -1,6 +1,5 @@
 public class DS1_LinkedList {
-    
-    //node
+    //node class
     public static class Node {
         int data;
         Node next;
@@ -31,9 +30,7 @@ public class DS1_LinkedList {
             head2 = head2.next;
         } //{1, 2, 3, 4}
 
-
-
-        Node sizeOneNode = new Node(1);
+        Node sizeOneNode = new Node(1); //test case for if a list is only one node long
 
         //run test cases
         removeMid(firstHead);
@@ -41,29 +38,28 @@ public class DS1_LinkedList {
         removeMid(sizeOneNode);
     }
 
-
     public static void removeMid(Node head)
     {   
         if(!(head == null))
-        {  //uses two pointer variables to TODO write comments
-            Node slow = head;
-            Node fast = head;
-            Node prev = null;
+        {  //uses two pointer variables to 
+            Node slow = head; //slow pointer
+            Node fast = head; //fast pointer 
+            Node prev = null; //previous pointer
 
-            while(fast != null && fast.next != null)
+            while(fast != null && fast.next != null)  // while the fast pointer is not null and the next node is not null
             {
-                prev = slow;
-                slow = slow.next;
-                fast = fast.next.next;
+                prev = slow;  //sets the previous pointer to the slow pointer
+                slow = slow.next; //moves the slow pointer one node ahead 
+                fast = fast.next.next; //moves the fast pointer two nodes ahead
             }
-            if(prev != null)
+            if(prev != null) //if the previous pointer is not null
             {
-                prev.next = slow.next;
+                prev.next = slow.next; //sets the previous pointer to the next node of the slow pointer
             }
-            else
+            else  
             {
                 head = null;
-                System.out.println("\nOne noded list, element removed, list: " + head);
+                System.out.println("\nOne noded list, element removed, list: " + head);  //for the case of a one node list
                 return;
             }
 
@@ -78,11 +74,12 @@ public class DS1_LinkedList {
         System.out.print("\nList with middle node removed: " );
         while(head != null)
         {
-
             System.out.print(head.data + " ");
             head = head.next;
         }
     }
 }
 
-
+/*
+ * TIME COMPLEXITY IS: O(n)
+ */
