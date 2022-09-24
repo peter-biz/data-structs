@@ -41,19 +41,19 @@ public class DS1_Stacks {
             {
                 String element = stack.pop();  //pops out the top element from the stack and sets it to element 
                 //if statments that check the value of element and change the bCount and pCount values accordingly
-                if(element.equals("["))
+                if(element.equals("["))  //checks if the element from stack is equal to [
                 {
                     bCount++;
                 }
-                else if(element.equals("]"))
+                else if(element.equals("]"))  //checks if element from stack is equal to ]
                 {
                     bCount--;
                 }
-                else if(element.equals("("))
+                else if(element.equals("(")) //checks if elemeent from stack is equal to (
                 {
                     pCount++;
                 }
-                else if(element.equals(")"))
+                else if(element.equals(")"))  //checks if element from stack is equal to )
                 {
                     pCount--;
                 }
