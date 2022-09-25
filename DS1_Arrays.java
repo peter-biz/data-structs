@@ -25,21 +25,21 @@ public class DS1_Arrays{
         {
             boolean duplicate = false;
             for(int j = 0; j < finArraySize; j++)
-            {
+            { 
                 if(arr[i] == finArray[j])
                 {
-                    duplicate = true;
+                    duplicate = true;  //if the number is a duplicate, it will not be added to the new array
                     break;
                 }
             }
             if(!duplicate)
             {
                 finArray[finArraySize] = arr[i];
-                finArraySize++;
+                finArraySize++;  //adds to the size
             }
         }
 
-        finArray = Arrays.copyOf(finArray, finArraySize);
+        finArray = Arrays.copyOf(finArray, finArraySize); //truncates the array
 
         System.out.println("\nArray: " + Arrays.toString(finArray));
         System.out.println("Array size: " + finArraySize);
