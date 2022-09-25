@@ -7,18 +7,16 @@ public class DS1_Stacks {
         String testCase1 = "[()]"; // output should be: [()] is balanced
         String testCase2 = "()[]"; // output should be: ()[] is balanced
         String testCase3 = "[(]["; // output should be: [)][ is not balanced
-        String testCase4 = "(([[])])";  //personal test case just to make sure it works
-        String testCase5 = "()"; //personal test case just to make sure it works
-        String testCase6 = "";
-        
-        
-        //run test cases
+        String testCase4 = "()"; //personal test case just to make sure it works
+        String testCase5 = "";
+
+       //run test cases
        isBalanced(testCase1);
        isBalanced(testCase2);
        isBalanced(testCase3);
        isBalanced(testCase4);
        isBalanced(testCase5);
-       isBalanced(testCase6);
+       
     }
 
     public static void isBalanced(String s) {
