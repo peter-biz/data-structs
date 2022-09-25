@@ -7,8 +7,8 @@ public class DS1_Stacks {
         String testCase1 = "[()]"; // output should be: [()] is balanced
         String testCase2 = "()[]"; // output should be: ()[] is balanced
         String testCase3 = "[(]["; // output should be: [)][ is not balanced
-        String testCase4 = "()"; //personal test case just to make sure it works
-        String testCase5 = "";
+        String testCase4 = "()"; //personal test case just to make sure unexpected inputs work
+        String testCase5 = ""; 
         String testCase6 = "[(])";
 
        //run test cases
