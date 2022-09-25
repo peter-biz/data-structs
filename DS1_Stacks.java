@@ -9,6 +9,7 @@ public class DS1_Stacks {
         String testCase3 = "[(]["; // output should be: [)][ is not balanced
         String testCase4 = "()"; //personal test case just to make sure it works
         String testCase5 = "";
+        String testCase6 = "[(])";
 
        //run test cases
        isBalanced(testCase1);
@@ -16,66 +17,61 @@ public class DS1_Stacks {
        isBalanced(testCase3);
        isBalanced(testCase4);
        isBalanced(testCase5);
-       
+       isBalanced(testCase6);
     }
 
-    public static void isBalanced(String s) {
-        Stack<String> stack = new Stack<String>();  //new stack
-        int pCount = 0; //parentheses count
-        int bCount = 0; //square bracket count
 
+    // is balanced function that takes a string, makes it into a stack and then finds mathcing pairs of [], and (), to determine if the given string is balanced
+    public static void isBalanced(String s)
+    {
 
-        for(int x = 0; x < s.length(); x++)  //inserts the chars in the string into the stack
+        Stack<Character> stack = new Stack<Character>(); //create a stack of characters
+
+        for(int i = 0; i < s.length(); i++) //iterate through the string
         {
-            String c = s.charAt(x) +"";
-            stack.push(c);
-           
+            char c = s.charAt(i); //get the character at the current index
+
+            if(c == '(' || c == '[') //if the character is a ( or [, push it to the stack
+            {
+                stack.push(c);
+            }
+            else if(c == ')') //if the character is a ), check if the top of the stack is a (, if it is, pop it, if not, the string is not balanced
+            {
+                if(stack.isEmpty() || stack.peek() != '(')
+                {
+                    System.out.println("\n" + s + " is not balanced");
+                    return;
+                }
+                else  //if the top of the stack is a (, pop it
+                {
+                    stack.pop();
+                }
+            }
+            else if(c == ']') //if the character is a ], check if the top of the stack is a [, if it is, pop it, if not, the string is not balanced
+            {
+                if(stack.isEmpty() || stack.peek() != '[')
+                {
+                    System.out.println("\n" + s + " is not balanced");
+                    return;
+                }
+                else  //if the top of the stack is a [, pop it
+                {
+                    stack.pop();  
+                }
+            }
         }
 
-        if(!stack.isEmpty())  //double checks that stack has elements before running
+        if(stack.isEmpty()) //if the stack is empty, the string is balanced
         {
-            int size = stack.size(); //initial stack size so that for loop has a constant size
-            for(int x = 0; x < size; x++)
-            {
-                String element = stack.pop();  //pops out the top element from the stack and sets it to element 
-                //if statments that check the value of element and change the bCount and pCount values accordingly
-                if(element.equals("["))  //checks if the element from stack is equal to [
-                {
-                    bCount++;
-                }
-                else if(element.equals("]"))  //checks if element from stack is equal to ]
-                {
-                    bCount--;
-                }
-                else if(element.equals("(")) //checks if elemeent from stack is equal to (
-                {
-                    pCount++;
-                }
-                else if(element.equals(")"))  //checks if element from stack is equal to )
-                {
-                    pCount--;
-                }
-            }
-
-            if(bCount == 0 && pCount == 0)  //checks if the amount of brackets/parentheses are balanced
-            {
-                System.out.println("\n" + s + " is balanced."); 
-            }
-            else
-            {
-                System.out.println("\n" + s + " is not balanced.");
-            }
-
-           //TIME COMPLEXITY is O(n) because the for loop runs n times and the if statements are constant time
+            System.out.println("\n" + s + " is balanced");
         }
-        else
+        else //if the stack is not empty, the string is not balanced
         {
-            System.out.println("\n Given string is empty.");
+            System.out.println("\n" + s + " is not balanced");
         }
     }
 }
 
-
 /*
- * TIME COMPELXITY is O(n)
+ * TIME COMPLEXITY is O(n)
  */
