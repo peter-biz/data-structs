@@ -15,18 +15,25 @@ public class DS1_Palindromes {
     }
 
     public static boolean isPalindrome(String s) {
-        boolean b;
-        String copy = s;
+       // String copy = s;
         if(s.length() == 0 || s.length() == 1) {
-            b = true;
+            return true;
         }
         else {
             for(int i = 0; i < s.length(); i++) {
-                
+                for(int k = s.length() - 1; k > 0; k--) {
+                    if((s.charAt(i) == (s.charAt(k)))) {
+                        return true;
+                    }
+                    else if(!(s.charAt(i) == s.charAt(k))) {
+                        return false;
+                    }
+                }
             }
         }
+        return false;
 
-        return b;
+        
     }
 
 }
