@@ -12,14 +12,29 @@ public class DS1_TagRemover {
          * None
          * Tom likes to read books
          */
+        String test2 = "<h1>Hello World</h1>"; //output: Hello World
+        String test3 = "<h1>Hello World</h1><h2>Good bye</h2>"; //output: Hello World Good bye
+        String test4 = "<h1><h2>cruel world</h2></h1>"; //output: cruel world
+
 
          System.out.println("String with tags removed: " + removeTags(test1));
+         System.out.println("String with tags removed: " + removeTags(test2));
+         System.out.println("String with tags removed: " + removeTags(test3));
+         System.out.println("String with tags removed: " + removeTags(test4));
+
     }
 
     public static String removeTags(String s) {
+        String startTag;
+        String endTag;
         for(int x = 0; x < s.length(); x++) {
             if(s.charAt(x) == '<') {
-                // s. char at  == > 
+                for(int y = x; y < x + 10; y++) {
+                    if(s.charAt(y) == '>') {
+                        startTag = s.substring(x, y);
+                        break;
+                    }
+                }
             }
         }
         return s;
