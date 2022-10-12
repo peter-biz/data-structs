@@ -17,7 +17,11 @@ public class DS1_TagRemover {
     }
 
     public static String removeTags(String s) {
-        
+        for(int x = 0; x < s.length(); x++) {
+            if(s.charAt(x) == '<') {
+                // s. char at  == > 
+            }
+        }
         return s;
     }
 }
