@@ -24,19 +24,23 @@ public class DS1_TagRemover {
 
     }
 
+   
+
     public static String removeTags(String s) {
-        String startTag;
+        String startTag = "";
         String endTag;
         for(int x = 0; x < s.length(); x++) {
             if(s.charAt(x) == '<') {
                 for(int y = x; y < x + 10; y++) {
                     if(s.charAt(y) == '>') {
-                        startTag = s.substring(x, y);
+                        startTag = s.substring(x, y+1);
                         break;
                     }
                 }
             }
+            
         }
-        return s;
+        
+        return startTag;
     }
 }
