@@ -13,11 +13,31 @@ public class DS1_TagRemover {
          * Tom likes to read books
          */
 
-         System.out.println("String with tags removed: " + removeTags(test1));
+         System.out.println("Given text: " + test1 + "\nString with tags removed: " + removeTags(test1));
     }
 
+
+    //function that takes the given string, removes the HTML tags, both opening and closing, and numbers at the beggining of a line, and then returns the String without tags
+    //if the string is empty or does not match any of the conditions, it returns "None"
     public static String removeTags(String s) {
+       
+
+        //if the string is empty, return "None"
+        if(s.isEmpty()) {
+            return "None";
+        }
+        //if the string does not contain any tags, return "None"
+        if(!s.contains("<") && !s.contains(">")) {
+            return "None";
+        }
+
         
-        return s;
+        
+        
+    
+
+      
+
+
     }
 }
