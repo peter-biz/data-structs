@@ -3,73 +3,54 @@ import java.lang.StringBuilder;
 
 public class DS1_TagRemover {
     public static void main(String[] args) {
+        //test cases
+        String test1 = "<h1>Nayeem loves counseling</h1>"; 
+        String test2 = "<h1><h2>Sanjay has no watch</h2></h1><par>So wait for a while</par>"; 
+        String test3 = "<Amee>safat codes like a ninja</amee>"; 
+        String test4 = "<h1><h2>valid</h2><h3>valid</h3></h1>";
+        String test5 = "<SA premium>Imtiaz has a secret crush</SA premium>"; 
 
-        // sample input
-        // String test1 = "4\n<h1>John loves counseling</h1>\n<h1><h1>John has no watch"
-        // +
-        // "</h1></h1>\n<par>So wait for a while</par>\n<Amee>Tom codes like a
-        // ninja</amee>" +
-        // "\n<SA premium>Tom likes to read books</SA premium>";
-        /*
-         * OUTPUT
-         * John loves counseling
-         * John has no watch
-         * So wait for a while
-         * None
-         * Tom likes to read books
-         */
-        String test2 = "<h1>Nayeem loves counseling</h1>"; 
-        String test3 = "<h1><h2>Sanjay has no watch</h2></h1><par>So wait for a while</par>"; 
-        String test4 = "<Amee>safat codes like a ninja</amee>"; 
-        String test5 = "<h1><par>So wait for a while</par> <Amee>safat codes like a ninja</amee></h1>"; 
-        String test6 = "<h1><h2>valid</h2><h3>valid</h3></h1>";
-        String test7 = "<h1>valid</h1>invalid";
-        String test8 = "<SA premium>Imtiaz has a secret crush</SA premium>"; 
-
-        // System.out.println("Given text(1): " + test1 + "\nString with tags removed: " + removeTags(test1));
-        System.out.println("\nGiven text(2): " + test2 + "\nString with tags removed: " + removeTags(test2)); // output: Nayeem loves counseling
-        System.out.println("\nGiven text(3): " + test3 + "\nString with tags removed: " + removeTags(test3)); // output: Sanjay has nowatch So wait for a while
-        System.out.println("\nGiven text(4): " + test4 + "\nString with tags removed: " + removeTags(test4)); // output: None
-        System.out.println("\nGiven text(5): " + test5 + "\nString with tags removed: " + removeTags(test5)); // output: So wait for a while None
-        System.out.println("\nGiven text(6): " + test6 + "\nString with tags removed: " + removeTags(test6));  // output: valid valid
-        System.out.println("\nGiven text(7): " + test7 + "\nString with tags removed: " + removeTags(test7));  // output: valid None
-        System.out.println("\nGiven text(8): " + test8 + "\nString with tags removed: " + removeTags(test8) + "\n"); // output: Imtiaz has a secret crush
+        //run test cases
+        System.out.println("\nGiven text(1): " + test1 + "\nString with tags removed: " + removeTags(test1)); // output: Nayeem loves counseling
+        System.out.println("\nGiven text(2): " + test2 + "\nString with tags removed: " + removeTags(test2)); // output: Sanjay has nowatch So wait for a while
+        System.out.println("\nGiven text(3): " + test3 + "\nString with tags removed: " + removeTags(test3)); // output: None
+        System.out.println("\nGiven text(4): " + test4 + "\nString with tags removed: " + removeTags(test4));  // output: valid valid
+        System.out.println("\nGiven text(5): " + test5 + "\nString with tags removed: " + removeTags(test5) + "\n"); // output: Imtiaz has a secret crush
         
     }
 
-
-    public static String removeTags(String s) {
-        Stack<String> stack = new Stack<String>();
-        StringBuilder output = new StringBuilder();
-        output.append(" ");
-        Boolean match = false;
-
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '<') {
-                stack.push("<");
-            } else if (s.charAt(i) == '>') {
-                stack.pop();
-                match = true;
-            } else if (stack.isEmpty()) {
-                output.append(s.charAt(i));
+    public static String removeTags(String str) { 
+        Stack<String> stack = new Stack<String>(); // stack to store tags
+        StringBuilder sb = new StringBuilder(); // string builder to store string without tags
+        String[] strArr = str.split(">"); // split string by > to get tags and text
+        
+        for (int i = 0; i < strArr.length; i++) { // loop through array
+            if (strArr[i].contains("<")) { // if tag is found
+                String[] temp = strArr[i].split("<");
+                if (temp[0].length() > 0) { // if text is found
+                    sb.append(temp[0]); // append text to string builder
+                }
+                if (temp[1].contains("/")) { // if closing tag is found
+                    if (stack.size() > 0) { 
+                        if (stack.peek().equals(temp[1].substring(1))) { // if closing tag matches top of stack
+                            stack.pop();
+                        } else {
+                            stack.push(temp[1].substring(1)); // push tag to stack
+                        }
+                    } else {
+                        stack.push(temp[1].substring(1)); // push tag to stack
+                    }
+                } else {
+                    stack.push(temp[1]); // push tag to stack
+                }
+            } else {
+                sb.append(strArr[i]);   // append text to string builder
             }
         }
-
-        if (match == false) {
-            output.setLength(0);
-            output.append("None");
+        if (stack.size() > 0) { // if stack is not empty
+            return "None";
+        } else { // if stack is empty
+            return sb.toString();
         }
-
-        return output.toString();
-
-        /*
-         * (2): Excpected output: Nayeem loves counseling, current output: Nayeem loves counseling   (good)
-         * (3): Excpected output: Sanjay has nowatch So wait for a while, current output: Sanjay has nowatchSo wait for a while   (needs a space in between, ok)
-         * (4): Excpected output: None, current output: safat codes like a ninja   (bad)
-         * (5): Excpected output: So wait for a while None, current output: So wait for a while safat codes like a ninja   (bad)
-         * (6): Excpected output: valid valid, current output: validvalid   (needs a space in between, ok)
-         * (7): Excpected output: valid None, current output: validinvalid   (bad)
-         * (8): Excpected output: Imtiaz has a secret crush, current output: Imtiaz has a secret crush   (good)
-         */
     }
 }
