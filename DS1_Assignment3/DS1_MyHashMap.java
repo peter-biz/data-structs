@@ -30,12 +30,12 @@ class DS1_MyHashMap {
     public void put(int key, int value) {
         //if the key is already in the map, update existing value
         
-        if(indices[key] != null)
+        if(indices[key] == null || indices[key] == "8") //TODO logic :0, rethinking the need for an if statment here, at the very least think the condition is wrong
         {
             values.add(key, value);
         }
         hashPrint();
-
+        
 
     }
 
