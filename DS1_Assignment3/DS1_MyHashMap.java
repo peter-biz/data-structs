@@ -1,6 +1,13 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.OptionalInt;
+
 
 class DS1_MyHashMap {
+ 
+    private int size;
+    String[] indices;
+    LinkedList<Integer> values = new LinkedList<Integer>();
+
     public static void main(String args[])
     {
         DS1_MyHashMap myHashMap = new DS1_MyHashMap();
@@ -15,24 +22,38 @@ class DS1_MyHashMap {
     }
 
     public DS1_MyHashMap() {
-        ArrayList<Integer> list = new ArrayList<>();
-
+     
 
     }
 
+    //adds a key-value pair to the map
     public void put(int key, int value) {
+        //if the key is already in the map, update existing value
         
+        if(indices[key] != null)
+        {
+            values.add(key, value);
+        }
+        hashPrint();
+
+
     }
 
+    //returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
     public int get(int key) {
+        
         return 0;
     }
 
+    //removes the mapping of the specified value key if this map contains a mapping for the key
     public void remove(int key) {
-
+       
+        hashPrint();
     }
 
+    //prints the hashmap
     public void hashPrint() {
+        
 
     }
 }
