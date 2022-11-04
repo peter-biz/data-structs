@@ -18,7 +18,6 @@ class DS1_MyHashMap {
         System.out.println(h.get(1));  // return 1, The map is now [[1,1], [2,2]]
         System.out.println(h.get(3)); // return -1 (i.e., not found), The map is now [[1,1], [2,2]]
         h.put(2, 1); // The map is now [[1,1], [2,1]] (i.e., update the existing value)
-        System.out.println(h.get(2));
         System.out.println(h.get(2));    // return 1, The map is now [[1,1], [2,1]]
         h.remove(2); // remove the mapping for 2, The map is now [[1,1]]
         System.out.println(h.get(2));    // return -1 (i.e., not found), The map is now [[1,1]]
