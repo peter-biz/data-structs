@@ -1,11 +1,9 @@
 import java.util.ArrayList;
-import java.util.OptionalInt;
-
 
 class DS1_MyHashMap {
  
-    private int size = 10;
-    String[] indices = new String[size];
+    
+    ArrayList<String> indices = new ArrayList<String>();
     ArrayList<Integer> values = new ArrayList<Integer>();
 
     public static void main(String args[])
@@ -34,7 +32,7 @@ class DS1_MyHashMap {
         //if the key is already in the map, update existing value
         
         //if(indices[key] == null || indices[key] == "8") //TODO logic :0, rethinking the need for an if statment here, at the very least think the condition is wrong
-        indices[key] = key +"";
+      
         values.add(key, value);
         hashPrint();
         
