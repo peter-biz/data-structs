@@ -27,14 +27,34 @@ public class DS1_BST {
     //function finds node equals to val and returns the subtree rooted with that node. If such a node does not exist, return null.
     public static ArrayList<Integer> findSubTree(ArrayList<Integer> a, int val) {
         ArrayList<Integer> result = new ArrayList<Integer>();
-        int root = a.get(0);
+        
         int distance = 0; 
+        int root = a.get(0);
         int left = a.get(1);
         int right = a.get(2);
 
-         //TODO: this output is not correct, need to fix it outputs [2,7,1,3], should be [2,1,3]
         if (root == val) {
             for (int i = 0; i < a.size(); i++) {
+                if(a.get(i) != null) {
+                    result.add(a.get(i));
+                }
+            }
+            return result;
+        }
+
+        //do not return the right side of the tree if the value is not on that side
+        if (left == val) {
+            for (int i = 1; i < a.size(); i++) {
+                if(a.get(i) != null  && (a.get(i) != right)) {
+                    result.add(a.get(i));
+                }
+            }
+            return result;
+        }
+
+        //do not return the left side of the tree if the value is not on that side
+        if (right == val) {
+            for (int i = 2; i < a.size(); i++) {
                 if(a.get(i) != null) {
                     result.add(a.get(i));
                 }
@@ -42,77 +62,56 @@ public class DS1_BST {
             }
             return result;
         }
-        //left is smaller than current node, right is larger than current node
-        
 
-            
-        // } else {
-        //     for (int i = 0; i < a.size(); i++) {
-        //         if (a.get(i) != "null") {
-        //             if (Integer.parseInt(a.get(i)) == val) {
-        //                 distance = i;
-        //                 break;
-        //             }
-        //         }
-        //     }
-        //     if (distance == 0) {
-        //         return result;
-        //     } else {
-        //         for (int i = distance; i < a.size(); i++) {
-        //             if (a.get(i) != "null") {
-        //                 result.add(Integer.parseInt(a.get(i)));
-        //             }
-        //         }
-        //         return result;
-        //     }
-        // }
+        //if the value is not on the left or right side of the tree, return an empty array
+        if (left != val && right != val) {
+            return result;
+        }
+        return result;
     }  
 
-    public static ArrayList<Integer> findLCA(ArrayList<Integer> a, int val1, int val2) {
-        ArrayList<Integer> result = new ArrayList<Integer>();
+    //function finds the lowest common ancestor of two nodes in a binary tree
+    public static int findLCA(ArrayList<Integer> a, int p, int q) {
+        int result = 0;
+        if(a.size() <= 2) {
+            return a.get(0);
+        }
+        int root = a.get(0);
+        int left = a.get(1);
+        int right = a.get(2);
+        
+       //if input is [3,5,1,6,2,0,8,null,null,7,4] p = 5, q = 1, output should be 3, if p = 5, q = 4, output should be 3
+        if (root == p || root == q) {
+            return root;
+        }
+        if (left == p || left == q) {
+            return left;
+        }
+        if (right == p || right == q) {
+            return right;
+        }
+        if (p > root && q > root) {
+            for (int i = 2; i < a.size(); i++) {
+                if (a.get(i) != null) {
+                    if (a.get(i) == p || a.get(i) == q) {
+                        result = a.get(i);
+                        break;
+                    }
+                }
+            }
+        } else if (p < root && q < root) {
+            for (int i = 1; i < a.size(); i++) {
+                if (a.get(i) != null) {
+                    if (a.get(i) == p || a.get(i) == q) {
+                        result = a.get(i);
+                        break;
+                    }
+                }
+            }
+        } else {
+            result = root;
+        }
         return result;
+                            //TODO test1 output should be 3, is instead outputting 5
     }
-
 }
-//     //function finds the lowest common ancestor of two given nodes in the BST.
-//     public static ArrayList<Integer> findLCA(ArrayList<Integer> a, int val1, int val2) {
-//         ArrayList<Integer> result = new ArrayList<Integer>();
-//         int root = Integer.parseInt(a.get(0));
-//         int distance1 = 0;
-//         int distance2 = 0;
-//         if (root == val1 || root == val2) {
-//             result.add(root);
-//             return result;
-//         } else {
-//             for (int i = 1; i < a.size(); i++) {
-//                 if (a.get(i) != "null") {
-//                     if (Integer.parseInt(a.get(i)) == val1) {
-//                         distance1 = i;
-//                         break;
-//                     }
-//                 }
-//             }
-//             for (int i = 1; i < a.size(); i++) {
-//                 if (a.get(i) != "null") {
-//                     if (Integer.parseInt(a.get(i)) == val2) {
-//                         distance2 = i;
-//                         break;
-//                     }
-//                 }
-//             }
-//             if (distance1 == 0 || distance2 == 0) {
-//                 return result;
-//             } else {
-//                 int parent1 = distance1 / 2;
-//                 int parent2 = distance2 / 2;
-//                 if (parent1 == parent2) {
-//                     result.add(Integer.parseInt(a.get(parent1)));
-//                     return result;
-//                 } else {
-//                     result.add(root);
-//                     return result;
-//                 }
-//             }
-//         }
-//     }
-// }
