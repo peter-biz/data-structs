@@ -1,120 +1,105 @@
-import java.util.Stack;
-
-import javax.naming.ldap.PagedResultsControl;
+import java.util.*;
 public class DS1_BST {
- 
-    public static void main() {
-        //input: root = [4, 2, 7, 1, 3, null, null], val = 2
-        //create a tree
-        tNode root = new tNode(4);
-        root.left = new tNode(2);
-        root.right = new tNode(7);
-        root.left.left = new tNode(1);
-        root.left.right = new tNode(3);
-        root.right.left = null;
-        root.right.right = null;
-        
-        //search for value 2
-        int val = 2;
-        System.out.println(searchBST(root, val));
+    public static void main(String args[]) {
+        //input: root = [4, 2, 7, 1, 3, null, null], val = 2   ouput: [2, 1, 3]
+        /*
+         * find sub tree test cases
+        */
 
+        ArrayList<String> tree1 = new ArrayList<String>(Arrays.asList("4", "2", "7", "1", "3", "null", "null"));
+        System.out.println(findSubTree(tree1, 2));
 
-        //TODO: ME THINKS THIS IS WRONG AND YOU SHOULD FEEL BAD, ME ALSO THINKS THAT YOU SHOULD USE AN ARRAY LIST(MAYBE) FOR INPUT INSTEAD OF MAKING TREE NODES
-        //CRY ABOUT IT - real
-        
-
+       /*
+        * find LCA tree cases
+        */
+        //root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+        ArrayList<String> tree2 = new ArrayList<String>(Arrays.asList("3","5","1","6","2","0","8","null","null","7","4"));
+        System.out.println(findLCA(tree2, 5, 1));
 
     }
 
-    public class tNode {
-        int val;
-        tNode left;
-        tNode right;
-        tNode parent;
-        tNode() {}
-        tNode(int val) { this.val = val; }
-        tNode(int val, tNode left, tNode right, tNode parent) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-            this.parent = parent;
-        }
-
-        
-    }
-
-    
-    
-     //finds the node in the BST that has the node value equals to (variable) val and returns the subtree rooted witht hat node. If such a node does not exist, return null.
-    public String searchBST(tNode root, int val)
-    {
+    //function finds node equals to val and returns the subtree rooted with that node. If such a node does not exist, return null.
+    public static String findSubTree(ArrayList<String> a, int val) {
+        //returns a subtree rooted with the node that has the node value equals to val
         //if the root is null, return null
-        if(root == null)
+        //for example if the input is [4, 2, 7, 1, 3, null, null], val = 2, output should be [2, 1, 3]
+        if (a.get(0).equals("null")) {
+            return "null";
+        }
+        //if the root is the value we are looking for, return the whole tree
+        if (Integer.parseInt(a.get(0)) == val) {
+            return a.toString();
+        }
+        //if the root is not the value we are looking for, check the left and right subtree
+        String left = findSubTree(new ArrayList<String>(a.subList(1, a.size() / 2 + 1)), val);
+        String right = findSubTree(new ArrayList<String>(a.subList(a.size() / 2 + 1, a.size())), val);
+        //if the left and right subtree both return null, return null
+        if (left.equals("null") && right.equals("null")) {
+            return "null";
+        }
+        //if the left subtree is not null, return the left subtree
+        if (!left.equals("null")) {
+            return left;
+        }
+        //if the right subtree is not null, return the right subtree
+        if (!right.equals("null")) {
+            return right;
+        }
+        return "null";
+        
+        //TODO this output is not correct, need to fix it outputs [2,7,1], should be [2,1,3]
+    }
+
+
+    public static String findLCA(ArrayList<String> a, int val1, int val2) {
+        //if the root is null, return null
+        if(a.get(0) == "null")
         {
             return null;
         }
         //if the root is equal to the value, return the root
-        if(root.val == val)
+        if(a.get(0) == Integer.toString(val1) || a.get(0) == Integer.toString(val2))
         {
-            return root.toString();
+            return a.get(0);
         }
         //if the value is less than the root, search the left subtree
-        if(val < root.val)
+        if(val1 < Integer.parseInt(a.get(0)) && val2 < Integer.parseInt(a.get(0)))
         {
-            return searchBST(root.left, val);
+            ArrayList<String> left = new ArrayList<String>();
+            left.add(a.get(1));
+            left.add(a.get(3));
+            left.add(a.get(4));
+            return findLCA(left, val1, val2);
         }
         //if the value is greater than the root, search the right subtree
-        if(val > root.val)
+        if(val1 > Integer.parseInt(a.get(0)) && val2 > Integer.parseInt(a.get(0)))
         {
-            return searchBST(root.right, val);
+            ArrayList<String> right = new ArrayList<String>();
+            right.add(a.get(2));
+            right.add(a.get(5));
+            right.add(a.get(6));
+            return findLCA(right, val1, val2);
         }
-        return null;
-    }
-   
-
-    public tNode LCA (tNode root, int val1, int val2) {
-         //finds the lowest common ancestor of two nodes in the BST. If either of the nodes does not exist in the BST, return null. If both nodes are the same, return that node.
-         //using a stack
-        Stack<tNode> stack = new Stack<tNode>();
-        //push the root onto the stack 
-        stack.push(root);
-        //while the stack is not empty
-        while(!stack.isEmpty())
+        //if the value is greater than the root, search the right subtree
+        if(val1 < Integer.parseInt(a.get(0)) && val2 > Integer.parseInt(a.get(0)))
         {
-            //pop the top of the stack
-            tNode node = stack.pop();
-            //if the node is null, continue
-            if(node == null)
-            {
-                continue;
-            }
-            //if the node is equal to the first value, return the node
-            if(node.val == val1)
-            {
-                return node;
-            }
-            //if the node is equal to the second value, return the node
-            if(node.val == val2)
-            {
-                return node;
-            }
-            //if the node is greater than the first value and less than the second value, return the node
-            if(node.val > val1 && node.val < val2)
-            {
-                return node;
-            }
-            //if the node is less than the first value and greater than the second value, return the node
-            if(node.val < val1 && node.val > val2)
-            {
-                return node;
-            }
-            //push the left child onto the stack
-            stack.push(node.left);
-            //push the right child onto the stack
-            stack.push(node.right);
+            ArrayList<String> right = new ArrayList<String>();
+            right.add(a.get(2));
+            right.add(a.get(5));
+            right.add(a.get(6));
+            return findLCA(right, val1, val2);
+        }
+        //if the value is greater than the root, search the right subtree
+        if(val1 > Integer.parseInt(a.get(0)) && val2 < Integer.parseInt(a.get(0)))
+        {
+            ArrayList<String> right = new ArrayList<String>();
+            right.add(a.get(2));
+            right.add(a.get(5));
+            right.add(a.get(6));
+            return findLCA(right, val1, val2);
         }
         return null;
 
-    }
 
+    }
 }
