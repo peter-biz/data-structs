@@ -11,6 +11,7 @@ public class DS1_BST {
         System.out.println("Test1: " + findSubTree(tree, 2));  //output [2, 1, 3]
         System.out.println("Test2: " + findSubTree(tree, 5));  //ouput: []
         System.out.println("Test3: " + findSubTree(tree, 4));  //ouput: [4, 2, 7, 1, 3]
+
        /*
         * find LCA tree cases
         */
