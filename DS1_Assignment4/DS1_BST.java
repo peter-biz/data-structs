@@ -17,19 +17,49 @@ public class DS1_BST {
         */
         //root = [3,5,1,6,2,0,8,null,null,7,4]
         ArrayList<Integer> lcaTree = new ArrayList<Integer>(Arrays.asList(3,5,1,6,2,0,8,null,null,7,4));
+        //convert to BST using TreeNode class
+        TreeNode root = convertToBST(lcaTree);
         System.out.println("\n\nLCA Test Cases");
-        System.out.println("Test1: " + findLCA(lcaTree, 5, 1));  //p = 5, q = 1,  output should be 3
-        System.out.println("Test2: " + findLCA(lcaTree, 5, 4));  //p = 5, q = 4,  ouptut should be 5
+        System.out.println("Test1: " + findLCA(root, new TreeNode(5), new TreeNode(4) ));  //p = 5, q = 4,  output should be 5
+        System.out.println("Test2: " + findLCA(root, new TreeNode(5), new TreeNode(1) ));  //p = 5, q = 1,  output should be 3
 
         ArrayList<Integer> lcaTree2 = new ArrayList<Integer>(Arrays.asList(1, 2));
-        System.out.println("Test3: " + findLCA(lcaTree2, 1, 2));  //p = 1, q = 2,  ouptut should be 1
+        root = convertToBST(lcaTree2);
+        System.out.println("Test3: " + findLCA(root, new TreeNode(1), new TreeNode(2) ));  //p = 1, q = 2,  output should be 1
+    }
+
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode(int x) { val = x; }
+
+        @Override
+        public String toString() {
+            return String.valueOf(val);
+        }
+    }
+
+    public static TreeNode convertToBST(ArrayList<Integer> tree) {
+        TreeNode root = new TreeNode(tree.get(0));
+        for(int i = 1; i < tree.size(); i++) {
+            if(tree.get(i) != null) {
+                insert(root, tree.get(i));
+            }
+        }
+        return root;
+    }
+
+    public static void insert(TreeNode root, int val) {
+        if(root == null) {
+            root = new TreeNode(val);
+        }
     }
 
     //function finds node equals to val and returns the subtree rooted with that node. If such a node does not exist, return null.
     public static ArrayList<Integer> findSubTree(ArrayList<Integer> a, int val) {
         ArrayList<Integer> result = new ArrayList<Integer>();
-        
-        int distance = 0; 
+         
         int root = a.get(0);
         int left = a.get(1);
         int right = a.get(2);
@@ -56,7 +86,7 @@ public class DS1_BST {
         //do not return the left side of the tree if the value is not on that side
         if (right == val) {
             for (int i = 2; i < a.size(); i++) {
-                if(a.get(i) != null) {
+                if(a.get(i) != null && a.get(i) != left) {
                     result.add(a.get(i));
                 }
             
@@ -72,47 +102,19 @@ public class DS1_BST {
     }  
 
     //function finds the lowest common ancestor of two nodes in a binary tree
-    public static int findLCA(ArrayList<Integer> a, int p, int q) {
-        int result = 0;
-        if(a.size() <= 2) {
-            return a.get(0);
+    public static TreeNode findLCA(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null || root == p || root == q) {
+            return null;
         }
-        int root = a.get(0);
-        int left = a.get(1);
-        int right = a.get(2);
-        
-       //if input is [3,5,1,6,2,0,8,null,null,7,4] p = 5, q = 1, output should be 3, if p = 5, q = 4, output should be 3
-        if (root == p || root == q) {
+        TreeNode left = findLCA(root.left, p, q);
+        TreeNode right = findLCA(root.right, p, q);
+        if(left != null && right != null) {
             return root;
         }
-        if (left == p || left == q) {
-            return left;
-        }
-        if (right == p || right == q) {
-            return right;
-        }
-        if (p > root && q > root) {
-            for (int i = 2; i < a.size(); i++) {
-                if (a.get(i) != null) {
-                    if (a.get(i) == p || a.get(i) == q) {
-                        result = a.get(i);
-                        break;
-                    }
-                }
-            }
-        } else if (p < root && q < root) {
-            for (int i = 1; i < a.size(); i++) {
-                if (a.get(i) != null) {
-                    if (a.get(i) == p || a.get(i) == q) {
-                        result = a.get(i);
-                        break;
-                    }
-                }
-            }
-        } else {
-            result = root;
-        }
-        return result;
-                            //TODO test1 output should be 3, is instead outputting 5
+        return root;
+
+        
+
+        //TODO test1 output should be 3, is instead outputting 5
     }
 }
