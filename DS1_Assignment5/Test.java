@@ -27,7 +27,7 @@ public class Test {
       }
       
       int[] dir = new int[]{-1, 0, 1, 0, -1};
-      `
+      
     // Queue for running BFS
       Deque<int[]> floods = new ArrayDeque<>();
     
