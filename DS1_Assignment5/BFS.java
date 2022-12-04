@@ -109,13 +109,8 @@ public class BFS {
       return result == Integer.MAX_VALUE || result == Integer.MIN_VALUE ? -1 : result; //return the result
 
       
-   }
-
-
-      
-
-      
-   }
+   }      
+}
 
       
 
